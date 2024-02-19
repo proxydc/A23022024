@@ -27,7 +27,7 @@ import {
   TextWrappingSide,
 } from "docx";
 //import docData from "./DocData.js";
-import docData from "../../DocGeneration/tools/DocData"
+import docData from "../../DocGeneration/tools/DocData";
 const FileSaver = require("file-saver");
 import urldc from "../../_helpers/urllist.js";
 import axios from "axios";
@@ -38,7 +38,7 @@ import expperso from "../../DocGeneration/cExpPerso";
 import comp from "../../DocGeneration/cComps";
 import certs from "../../DocGeneration/cCerts";
 import bref from "../../DocGeneration/cBref";
-import lang from "../../DocGeneration/cLang"
+import lang from "../../DocGeneration/cLang";
 /*import docConv from "docx-pdf";
 const path = require('path');
 const unoconv = require('awesome-unoconv');
@@ -210,7 +210,7 @@ export default {
         ],
       });
       //doc.add(docData.getSubTitle("Outils"));
-    /*  doc.addSection({
+      /*  doc.addSection({
         children: [
           new Paragraph({
             children: [
@@ -220,10 +220,18 @@ export default {
           }),
         ],
       });*/
-      // To export into a .docx file
-      this.saveDocumentToFile(doc, `vuedoc.docx`);
+      // To export into a .docx file+today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear()
+      //var today = new Date();
+      var filen =
+        "DossierCompetences-" +
+        docjs.familyname +
+        "-" +
+        docjs.firstname +
+        "-" +
+        new Date().toLocaleString() +
+        ".docx";
+      this.saveDocumentToFile(doc, filen); //`vuedoc.docx`);
       this.savetoPdf(doc);
-
     },
 
     savetoPdf(docword) {
@@ -241,7 +249,6 @@ export default {
          }
          console.log('result' + result);
        });*/
-
     },
     saveDocumentToFile(doc, fileName) {
       const mimeType =

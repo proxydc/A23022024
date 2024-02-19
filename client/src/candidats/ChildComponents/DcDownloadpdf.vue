@@ -102,7 +102,7 @@ export default {
         ],
       });
       // To export into a .docx file
-      this.saveDocumentToFile(doc, `vuedoc`);
+      this.saveDocumentToFile(doc, `vuedoc.docx`);
      // this.createPDF(doc);
       //this.doctopdf(doc, "pdf");
     },
@@ -110,18 +110,23 @@ export default {
       const mimeType =
         "application/pdf";
         let docblob ='';
-      Packer.toString(doc).then((str) => {
+      Packer.toBlob(doc).then((blob) => {
         //docblob = new Blob(blob.slice(0, blob.size, mimeType));
-       // docblob = blob.slice(0, blob.size, mimeType);
-       // FileSaver.saveAs(docblob, fileName);
-        let pdfName = 'test'; 
-    var doc = new jsPDF();
-    doc.text("hello hello", 10,10);
-    doc.save(pdfName + '.pdf');
+        docblob = blob.slice(0, blob.size, mimeType);
+        FileSaver.saveAs(docblob, fileName);
+        //let pdfName = 'test'; 
+    var docpdf = new jsPDF();
+    var blobpdf = new Blob([docpdf.output(blob)], { type: 'application/pdf'});
+    var bloburl = URL.createObjectURL(blobpdf);
+    window.open(bloburl);
+    alert("bloburl: "+ bloburl);
+    //docpdf.text(docblob);
+   // docpdf.save(pdfName + '.pdf');
        // doctopdf(docblob, "pdf");
       });
       //createPDF (docblob)
-    /*  docxConverter(docblob,'./output.pdf', (err, result) => {
+      alert("docblob: "+ docblob);
+     /* docxConverter(docblob,'./output.pdf', (err, result) => {
   if (err) console.log(err);
   else console.log(result); // writes to file for us
 });*/
