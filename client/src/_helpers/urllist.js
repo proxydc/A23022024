@@ -42,17 +42,9 @@ class urllist {
     static getDelDcUrl(id) {
         return baseURL + "dc/" + id;
     }
-    /*static update(id, data, isCompleted) {
-        return baseurl.put(`/dc/${id}?completed=${isCompleted}`, data);
+    static getDcPDFUrl(id) {
+        return baseURL + "dc/pdf/" + id;
     }
-
-    static searchByName(name) {
-        return baseurl.get(`/dc?name=${name}`);
-    }
-
-    static searchByTag(tag) {
-        return baseurl.get(`/dc?tag=${tag}`);
-    }*/
 }
 
 export default urllist;

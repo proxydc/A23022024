@@ -21,5 +21,6 @@ router.put("/dcAdmin/:id", controllerDC.updateDCByAdmin);
 router.delete("/dc/:id", controllerDC.deleteDCById);
 
 router.get("/dc-status", controllerDC.getAllDcStatus);
+router.get("/dc/pdf/:id", controllerDC.getDCPDF);
 
 module.exports = router;

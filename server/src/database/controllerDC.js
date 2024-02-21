@@ -3,6 +3,7 @@ const queries = require("./queries");
 const docTemplate = require("./documentTemplate");
 const { response } = require("express");
 const dcStatus = 1;
+const generatePDFKit = require('../helpers/generatePDFKit');
 //get-200
 const getDCs = (req, res) => {
   pool.query(queries.getDCs, (error, results) => {
@@ -210,6 +211,23 @@ const updateDCByAdmin = (req, res) => {
   }
 };
 
+//get-200
+const getDCPDF = (req, res) => {
+  const id = req.params.id;
+  pool.query(queries.getDCDocById, [id], (error, results) => {
+    try {
+      if (error) throw error;
+      generatePDFKit({
+        data: results.rows[0].document
+      })
+      res.status(200).json(results.rows);
+    } catch (err) {
+      console.log("catch: " + err);
+      res.status(203).json({ error: "Error Database! " + err });
+    }
+  });
+};
+
 
 module.exports = {
   getDCs,
@@ -222,4 +240,5 @@ module.exports = {
   updateDCByAdmin,
   deleteDCById,
   getAllDcStatus,
+  getDCPDF,
 };
